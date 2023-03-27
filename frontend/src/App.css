@@ -1,0 +1,64 @@
+.app {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.app button, .app input {
+  padding: 0.5rem;
+}
+
+.conversations {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-conversation-form {
+  display: flex;
+  padding: 0.5rem;
+}
+.create-conversation-form input {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.conversation {
+  display: flex;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.conversation.selected {
+  background: #ccc;
+}
+
+.conversation span {
+  flex: 1;
+  line-height: 2rem;
+}
+
+.messages{
+  flex: 1;
+}
+
+.message-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-list-item {
+  flex: 1;
+}
+
+.user, .assistant {
+  padding: 1rem;
+}
+
+.user {
+background: #ddd;
+}
+
+.assistant {
+  background: #eee;
+}

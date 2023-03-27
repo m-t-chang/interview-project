@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  mariadb:
+    image: mariadb:10.8.3-jammy
+    platform: linux/amd64
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./flask_docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=password
+      - MYSQL_USER=admin
+      - MYSQL_DATABASE=gpt_project
+  
+  flask_docker:
+    build:
+      context: .
+      dockerfile: flask_docker/Dockerfile
+    platform: linux/amd64
+    ports:
+      - "8000:8000"
+    volumes:
+        - type: bind
+          source: ./flask_docker
+          target: /flask_docker/flask_docker
+        - type: bind
+          source: ./config
+          target: /flask_docker/config
+    command: >
+      gunicorn -c "python:config.gunicorn" --reload "flask_docker.app:create_app()"
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+volumes:
+  mariadb_data:
